@@ -1,0 +1,25 @@
+1:"$Sreact.fragment"
+2:I[5500,["/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js","/beads-bar/_next/static/chunks/40mrj-m-u2si6.js"],"Image"]
+3:I[22016,["/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js","/beads-bar/_next/static/chunks/40mrj-m-u2si6.js"],""]
+4:I[97367,["/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+9:I[97367,["/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js"],"ViewportBoundary"]
+a:I[97367,["/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js"],"MetadataBoundary"]
+b:I[27201,["/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js"],"IconMark"]
+d:I[39756,["/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js"],"default"]
+e:I[37457,["/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js"],"default"]
+11:I[77630,["/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js"],"CartProvider"]
+:HL["/beads-bar/_next/static/chunks/0p-m3rt1xervd.css","style"]
+8:X
+10:X
+10:C
+0:{"buildId":"dGqlRk_zL-wHtpwNKsRGM","data":[{"rsc":["$","$1","c",{"children":[["$","div",null,{"className":"flex min-h-screen flex-col items-center justify-center bg-canvas px-4 text-center","children":[["$","$L2",null,{"src":"/beads-bar/brand/mascot-3.png","alt":"","width":160,"height":175,"className":"drop-shadow","aria-hidden":true}],["$","h1",null,{"className":"font-display mt-6 text-4xl font-medium","children":["Oeps, dit kraaltje is ",["$","span",null,{"className":"italic text-pink-deep","children":"weggerold"}]]}],["$","p",null,{"className":"mt-3 max-w-sm text-ink-soft","children":"Deze pagina bestaat niet (meer). Geen zorgen, de mooiste dingen liggen gewoon in de shop."}],["$","$L3",null,{"href":"/","className":"btn-cta mt-6 rounded-full px-8 py-3.5 font-bold","children":"Terug naar The Beads Bar →"}]]}],[["$","script","script-0",{"src":"/beads-bar/_next/static/chunks/40mrj-m-u2si6.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":"$@7","staleTime":"$8","varyParams":null},{"rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L9",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$La",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"The Beads Bar · Handcrafted Elegance"}],["$","meta","1",{"name":"description","content":"Premium kralen, beadable pens en DIY-sets. Voor 15:00 besteld, zelfde werkdag verzonden. Cadeautje bij elke bestelling."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","link","3",{"rel":"icon","href":"/beads-bar/icon.png?icon.246m0tl9w6xlf.png","sizes":"512x512","type":"image/png"}],["$","link","4",{"rel":"apple-touch-icon","href":"/beads-bar/apple-icon.png?apple-icon.3qshifya3s13l.png","sizes":"180x180","type":"image/png"}],["$","$Lb","5",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":"$@c","staleTime":"$8","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","template":["$","$Le",null,{}]}]]}],"isPartial":"$@f","staleTime":"$8","varyParams":"$10"},{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/beads-bar/_next/static/chunks/0p-m3rt1xervd.css","precedence":"next"}],["$","script","script-0",{"src":"/beads-bar/_next/static/chunks/2jx9hfl-xvzuo.js","async":true}]],["$","html",null,{"lang":"nl","children":["$","body",null,{"className":"playfair_display_c08fa076-module__ct3OBG__variable quicksand_5ef65ac6-module__FlF2hG__variable great_vibes_eb332bb1-module__IRTgyG__variable antialiased","children":["$","$L11",null,{"children":["$","$Ld",null,{"parallelRouterKey":"children","template":["$","$Le",null,{}],"notFound":[["$","div",null,{"className":"flex min-h-screen flex-col items-center justify-center bg-canvas px-4 text-center","children":[["$","$L2",null,{"src":"/beads-bar/brand/mascot-3.png","alt":"","width":160,"height":175,"className":"drop-shadow","aria-hidden":true}],["$","h1",null,{"className":"font-display mt-6 text-4xl font-medium","children":["Oeps, dit kraaltje is ",["$","span",null,{"className":"italic text-pink-deep","children":"weggerold"}]]}],["$","p",null,{"className":"mt-3 max-w-sm text-ink-soft","children":"Deze pagina bestaat niet (meer). Geen zorgen, de mooiste dingen liggen gewoon in de shop."}],["$","$L3",null,{"href":"/","className":"btn-cta mt-6 rounded-full px-8 py-3.5 font-bold","children":"Terug naar The Beads Bar →"}]]}],[]]}]}]}]}]]}],"isPartial":"$@12","staleTime":"$8","varyParams":null}],"isUpgradeableISRFallback":false,"a":"$@13","rootVaryParams":null,"needsRuntimeRequest":"$@14"}
+6:null
+8:300
+14:true
+8:C
+13:0
+c:"$undefined"
+f:"$undefined"
+12:"$undefined"
+7:"$undefined"
