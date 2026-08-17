@@ -7,12 +7,12 @@ export type Category = {
 };
 
 export const CATEGORIES: Category[] = [
-  { slug: "kralen", name: "Kralen", palette: ["#f7a8c4", "#fff1f5", "#ecc987"] },
-  { slug: "beadable-pens", name: "Beadable Pens", palette: ["#f078a8", "#fff", "#d9a441"] },
-  { slug: "bedels", name: "Bedels", palette: ["#ecc987", "#d9a441", "#fff6f8"] },
-  { slug: "diy-sets", name: "DIY Sets", palette: ["#ffd6e4", "#f7a8c4", "#fff"] },
-  { slug: "armbanden", name: "Armbanden", palette: ["#f7a8c4", "#ecc987", "#fff"] },
-  { slug: "accessoires", name: "Accessoires", palette: ["#ffd6e4", "#fff9f2", "#f078a8"] },
+  { slug: "kralen", name: "Kralen", palette: ["#f6c3d3", "#fdeff4", "#e6cf9a"] },
+  { slug: "beadable-pens", name: "Beadable Pens", palette: ["#ee8fb8", "#fff", "#c9a24a"] },
+  { slug: "bedels", name: "Bedels", palette: ["#e6cf9a", "#c9a24a", "#fff7f9"] },
+  { slug: "diy-sets", name: "DIY Sets", palette: ["#f9d6e2", "#f6c3d3", "#fff"] },
+  { slug: "armbanden", name: "Armbanden", palette: ["#f6c3d3", "#e6cf9a", "#fff"] },
+  { slug: "accessoires", name: "Accessoires", palette: ["#f9d6e2", "#fff9f2", "#ee8fb8"] },
 ];
 
 export type Product = {

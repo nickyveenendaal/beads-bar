@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CartDrawer from "@/components/CartDrawer";
+import { IconLock } from "@/components/Icons";
 import SocialProofToast from "@/components/SocialProofToast";
 
 // Funnel-pagina's krijgen bewust GEEN volledig menu: hoe minder
@@ -13,7 +14,9 @@ export default function FunnelLayout({ children }: { children: React.ReactNode }
           <Link href="/">
             <Image src="/brand/logo-horizontal.png" alt="The Beads Bar" width={160} height={39} className="h-8 w-auto" />
           </Link>
-          <span className="text-[11px] font-bold text-ink-soft">🔒 Veilig betalen · iDEAL</span>
+          <span className="flex items-center gap-1.5 text-[11px] font-bold text-ink-soft">
+            <IconLock size={13} /> Veilig betalen · iDEAL
+          </span>
         </div>
       </header>
       <main>{children}</main>

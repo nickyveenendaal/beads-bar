@@ -47,8 +47,18 @@ function VideoMock({ title }: { title: string }) {
         <span className="flex flex-col items-center text-[9px] font-bold">
           <IconHeart size={22} filled /> 48,2k
         </span>
-        <span className="flex flex-col items-center text-[9px] font-bold">💬 1.204</span>
-        <span className="flex flex-col items-center text-[9px] font-bold">↗ 9.418</span>
+        <span className="flex flex-col items-center gap-0.5 text-[9px] font-bold">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+            <path d="M12 3C7 3 3 6.6 3 11c0 2.2 1 4.1 2.7 5.5-.1 1-.5 2.3-1.5 3.5 1.9-.2 3.4-.9 4.4-1.6.7.2 1.6.6 3.4.6 5 0 9-3.6 9-8s-4-8-9-8Z" />
+          </svg>
+          1.204
+        </span>
+        <span className="flex flex-col items-center gap-0.5 text-[9px] font-bold">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+            <path d="M13 5 21 12l-8 7v-4.5C8 14.5 5 16 3 19c.5-5 3-9.5 10-10.5Z" />
+          </svg>
+          9.418
+        </span>
       </div>
       <div className="absolute inset-x-4 top-3 h-0.5 overflow-hidden rounded-full bg-white/30">
         <div className="h-full w-full origin-left animate-[progress-loop_5s_linear_infinite] bg-white" />
