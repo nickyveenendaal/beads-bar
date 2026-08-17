@@ -1,100 +1,160 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useCart } from "@/lib/cart";
+import { useSession } from "@/lib/auth";
+import { IconCart, IconHeart, IconSearch, IconUser } from "./Icons";
 
 const NAV = [
-  { href: "/", label: "Home" },
-  { href: "/shop", label: "Shop" },
-  { href: "/shop?cat=beadable-pens", label: "Beadable Pens" },
-  { href: "/shop?cat=kralen", label: "Kralen" },
-  { href: "/shop?cat=diy-sets", label: "DIY Sets" },
-  { href: "/shop?cat=bedels", label: "Bedels" },
+  { href: "/", label: "Home", match: (p: string) => p === "/" },
+  { href: "/shop", label: "Shop", match: (p: string, c: string | null) => p === "/shop" && !c },
+  { href: "/shop?cat=beadable-pens", label: "Beadable Pens", match: (p: string, c: string | null) => c === "beadable-pens" },
+  { href: "/shop?cat=kralen", label: "Kralen", match: (p: string, c: string | null) => c === "kralen" },
+  { href: "/shop?cat=diy-sets", label: "DIY Sets", match: (p: string, c: string | null) => c === "diy-sets" },
+  { href: "/shop?cat=bedels", label: "Bedels", match: (p: string, c: string | null) => c === "bedels" },
+  { href: "/shop?cat=armbanden", label: "Armbanden", match: (p: string, c: string | null) => c === "armbanden" },
 ];
 
-export default function Header() {
+function PillNav() {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const cat = searchParams.get("cat");
+  return (
+    <nav className="bg-blush-deep/60">
+      <div className="mx-auto flex max-w-6xl items-center justify-start gap-1 overflow-x-auto px-4 py-1.5 md:justify-center">
+        {NAV.map((item) => {
+          const active = item.match(pathname, cat);
+          return (
+            <Link
+              key={item.label}
+              href={item.href}
+              className={`whitespace-nowrap rounded-full px-4 py-1.5 text-[12px] font-bold uppercase tracking-[0.14em] transition-all duration-300 ${
+                active ? "bg-pink text-white shadow-sm" : "text-ink-soft hover:bg-white/70 hover:text-pink-deep"
+              }`}
+            >
+              {item.label}
+            </Link>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
+function CartButton() {
   const { count, openCart } = useCart();
+  const [pop, setPop] = useState(false);
+  const prev = useRef(count);
+  useEffect(() => {
+    if (count > prev.current) {
+      setPop(true);
+      const id = setTimeout(() => setPop(false), 350);
+      return () => clearTimeout(id);
+    }
+    prev.current = count;
+  }, [count]);
+  return (
+    <button
+      onClick={openCart}
+      className="relative flex flex-col items-center gap-0.5 text-ink transition-colors hover:text-pink-deep"
+      aria-label="Winkelwagen openen"
+    >
+      <IconCart size={22} />
+      <span className="hidden text-[10px] font-bold text-ink-soft sm:block">Winkelwagen</span>
+      {count > 0 && (
+        <span
+          className={`absolute -right-2 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-pink px-1 text-[11px] font-bold text-white shadow-sm ${
+            pop ? "badge-pop" : ""
+          }`}
+        >
+          {count}
+        </span>
+      )}
+    </button>
+  );
+}
+
+function HeaderInner() {
   const router = useRouter();
+  const { session } = useSession();
   const [q, setQ] = useState("");
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-card/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3">
-        <Link href="/" className="group flex items-baseline gap-1.5" aria-label="The Beads Bar home">
-          <span className="font-display text-lg italic text-ink">The</span>
-          <span className="font-display text-2xl font-bold tracking-tight text-pink-deep transition-transform duration-300 group-hover:scale-105">
-            Beads Bar
-          </span>
-          <span className="hidden text-[10px] font-bold tracking-[0.2em] text-gold sm:inline">
-            BEADS · CREATE · INSPIRE
-          </span>
-        </Link>
-
+    <header className="sticky top-0 z-40 border-b border-line bg-card/95 backdrop-blur-md">
+      <div className="mx-auto grid max-w-6xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 py-3">
         <form
-          className="ml-auto hidden flex-1 max-w-xs md:block"
+          className="hidden max-w-60 md:block"
           onSubmit={(e) => {
             e.preventDefault();
             router.push(q ? `/shop?q=${encodeURIComponent(q)}` : "/shop");
           }}
         >
-          <div className="flex items-center rounded-full border border-line bg-canvas pl-4 transition-shadow focus-within:shadow-[0_0_0_3px_rgba(240,120,168,0.2)]">
+          <div className="flex items-center rounded-full border border-line bg-canvas pl-4 transition-shadow focus-within:shadow-[0_0_0_3px_rgba(238,143,184,0.25)]">
             <input
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Zoek naar kralen, pens, bedels..."
-              className="w-full bg-transparent py-2 text-sm outline-none placeholder:text-ink-soft"
+              className="w-full bg-transparent py-2 text-[13px] outline-none placeholder:text-ink-soft"
             />
             <button
               type="submit"
               aria-label="Zoeken"
-              className="gradient-cta m-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white"
+              className="btn-cta m-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full"
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <circle cx="11" cy="11" r="7" />
-                <path d="m20 20-3.5-3.5" />
-              </svg>
+              <IconSearch size={13} />
             </button>
           </div>
         </form>
+        <span className="md:hidden" />
 
-        <button
-          onClick={openCart}
-          className="relative ml-auto flex items-center gap-2 rounded-full border border-line bg-card px-4 py-2 text-sm font-bold transition-all hover:border-pink hover:shadow-[0_4px_14px_rgba(224,90,146,0.25)] md:ml-0"
-        >
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M6 7h12l1.5 13.5a1 1 0 0 1-1 1.1H5.5a1 1 0 0 1-1-1.1L6 7Z" />
-            <path d="M9 10V6a3 3 0 0 1 6 0v4" />
-          </svg>
-          Winkelwagen
-          {count > 0 && (
-            <span className="gradient-cta absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-[11px] font-bold text-white shadow-md">
-              {count}
-            </span>
-          )}
-        </button>
-      </div>
+        <Link href="/" className="justify-self-center text-center" aria-label="The Beads Bar home">
+          <Image
+            src="/brand/logo-horizontal.png"
+            alt="The Beads Bar"
+            width={216}
+            height={53}
+            priority
+            className="h-10 w-auto transition-transform duration-300 hover:scale-[1.03] md:h-[46px]"
+          />
+          <span className="mt-0.5 hidden text-[9px] font-bold uppercase tracking-[0.3em] text-gold md:block">
+            Beads · Create · Inspire
+          </span>
+        </Link>
 
-      <nav className="border-t border-line/60">
-        <div className="mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto px-4 py-1.5 text-[13px] font-semibold">
-          {NAV.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="whitespace-nowrap rounded-full px-3 py-1.5 text-ink-soft transition-colors hover:bg-blush hover:text-pink-deep"
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="flex items-center gap-5 justify-self-end">
           <Link
-            href="/admin"
-            className="ml-auto whitespace-nowrap rounded-full border border-line px-3 py-1.5 text-[11px] font-bold text-ink-soft transition-colors hover:border-pink hover:text-pink-deep"
+            href={session ? "/account" : "/inloggen"}
+            className="flex flex-col items-center gap-0.5 text-ink transition-colors hover:text-pink-deep"
           >
-            Admin demo →
+            <IconUser size={22} />
+            <span className="hidden text-[10px] font-bold text-ink-soft sm:block">
+              {session && session.role === "klant" ? session.name.split(" ")[0] : "Account"}
+            </span>
           </Link>
+          <Link
+            href="/account?tab=favorieten"
+            className="hidden flex-col items-center gap-0.5 text-ink transition-colors hover:text-pink-deep sm:flex"
+          >
+            <IconHeart size={22} />
+            <span className="text-[10px] font-bold text-ink-soft">Favorieten</span>
+          </Link>
+          <CartButton />
         </div>
-      </nav>
+      </div>
+      <PillNav />
     </header>
+  );
+}
+
+export default function Header() {
+  return (
+    <Suspense
+      fallback={<header className="sticky top-0 z-40 h-[108px] border-b border-line bg-card/95" />}
+    >
+      <HeaderInner />
+    </Suspense>
   );
 }

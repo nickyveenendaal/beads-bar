@@ -22,16 +22,16 @@ export const FUNNELS: Funnel[] = [
       { slug: "gold-charm-mix", qty: 1 },
     ],
     code: "TIKTOK15",
-    socialStat: "412k views · 1.189 bestellingen via deze video",
+    socialStat: "82k views · 168 bestellingen via deze video",
   },
   {
     slug: "flower-restock",
     videoTitle: "Restock ASMR: flower beads 🌸",
     hook: "De flower beads zijn terug.",
-    sub: "Vorige restock was in 2 dagen uitverkocht. Pak er direct 3: dan krijg je 10% staffelkorting bovenop je TIKTOK15-code.",
+    sub: "Vorige restock was in 2 dagen uitverkocht. Pak er direct 3: dan krijg je automatisch 10% staffelkorting.",
     products: [{ slug: "acryl-flower-beads-mix", qty: 3 }],
     code: "TIKTOK15",
-    socialStat: "186k views · 502 bestellingen via deze video",
+    socialStat: "41k views · 92 bestellingen via deze video",
   },
   {
     slug: "armband-party",
@@ -40,7 +40,7 @@ export const FUNNELS: Funnel[] = [
     sub: "De DIY Set Armband Party: 800+ kralen, elastiek en uitleg. Goed voor 8+ armbanden en een middag pret.",
     products: [{ slug: "diy-set-armband-party", qty: 1 }],
     code: "TIKTOK15",
-    socialStat: "94k views · 291 bestellingen via deze video",
+    socialStat: "23k views · 48 bestellingen via deze video",
   },
   {
     slug: "mystery",
@@ -49,7 +49,7 @@ export const FUNNELS: Funnel[] = [
     sub: "Altijd minstens het dubbele waard. Maximaal 2 per bestelling, want anders is de voorraad zo weg.",
     products: [{ slug: "mystery-beads-bag", qty: 2 }],
     code: "TIKTOK15",
-    socialStat: "58k views · 366 bestellingen via deze video",
+    socialStat: "18k views · 55 bestellingen via deze video",
   },
 ];
 

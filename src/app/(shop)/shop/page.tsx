@@ -24,11 +24,11 @@ export default async function ShopPage({
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <div className="rise-in text-center">
-        <h1 className="font-display text-4xl font-bold">
+        <h1 className="font-display text-4xl font-medium">
           {activeCat ? activeCat.name : query ? `Zoeken: "${q}"` : "Alle producten"}
         </h1>
         <p className="mt-1 text-sm text-ink-soft">
-          {items.length} {items.length === 1 ? "product" : "producten"} · gratis verzending vanaf €50
+          {items.length} {items.length === 1 ? "product" : "producten"} · gratis verzending vanaf €15
         </p>
       </div>
 
@@ -37,7 +37,7 @@ export default async function ShopPage({
           href="/shop"
           className={`rounded-full border px-4 py-1.5 text-[13px] font-bold transition-all ${
             !cat
-              ? "gradient-cta border-transparent text-white shadow-md"
+              ? "bg-pink border-transparent text-white shadow-sm"
               : "border-line bg-card text-ink-soft hover:border-pink hover:text-pink-deep"
           }`}
         >
@@ -49,7 +49,7 @@ export default async function ShopPage({
             href={`/shop?cat=${c.slug}`}
             className={`rounded-full border px-4 py-1.5 text-[13px] font-bold transition-all ${
               cat === c.slug
-                ? "gradient-cta border-transparent text-white shadow-md"
+                ? "bg-pink border-transparent text-white shadow-sm"
                 : "border-line bg-card text-ink-soft hover:border-pink hover:text-pink-deep"
             }`}
           >
@@ -60,8 +60,7 @@ export default async function ShopPage({
 
       {items.length === 0 ? (
         <div className="py-20 text-center">
-          <p className="text-4xl">🔍</p>
-          <p className="mt-3 font-bold">Niks gevonden</p>
+                    <p className="mt-3 font-bold">Niks gevonden</p>
           <p className="mt-1 text-sm text-ink-soft">Probeer een andere zoekterm of categorie.</p>
         </div>
       ) : (

@@ -1,13 +1,64 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import BeadImage from "@/components/BeadImage";
 import Countdown from "@/components/Countdown";
+import { IconCheck, IconHeart } from "@/components/Icons";
 import Stars from "@/components/Stars";
 import { useCart } from "@/lib/cart";
 import { findProduct, formatPrice, DISCOUNT_CODES } from "@/lib/products";
 import type { Funnel } from "@/lib/funnels";
+
+// Nagespeelde TikTok-video (CSS-animatie): zelfde sfeer als de echte
+// video zodat de overgang feed -> shop klopt. Bij een echte shop komt
+// hier de video zelf te staan (mp4-loop).
+function VideoMock({ title }: { title: string }) {
+  const beads = [
+    { left: "12%", delay: "0s", color: "#f6c3d3", size: 22 },
+    { left: "28%", delay: "1.1s", color: "#d9b06b", size: 16 },
+    { left: "46%", delay: "0.4s", color: "#ffffff", size: 19 },
+    { left: "63%", delay: "1.6s", color: "#e987ae", size: 24 },
+    { left: "80%", delay: "0.8s", color: "#f6c3d3", size: 15 },
+  ];
+  return (
+    <div className="gradient-animated relative mx-auto aspect-[9/13] w-full max-w-xs overflow-hidden rounded-[28px] shadow-lg">
+      {beads.map((b, i) => (
+        <span
+          key={i}
+          className="absolute -top-8 animate-[confetti-fall_5s_linear_infinite] rounded-full"
+          style={{
+            left: b.left,
+            width: b.size,
+            height: b.size,
+            background: b.color,
+            animationDelay: b.delay,
+            boxShadow: "inset -3px -4px 6px rgba(90,68,54,0.25), inset 3px 4px 6px rgba(255,255,255,0.8)",
+          }}
+          aria-hidden
+        />
+      ))}
+      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/50 to-transparent p-4 pt-10">
+        <p className="text-[12px] font-bold text-white">@thebeadsbar_</p>
+        <p className="text-[11px] text-white/90">{title} · #beads #diy #fyp</p>
+      </div>
+      <div className="absolute right-2.5 top-1/2 flex -translate-y-1/2 flex-col items-center gap-4 text-white" aria-hidden>
+        <span className="flex flex-col items-center text-[9px] font-bold">
+          <IconHeart size={22} filled /> 48,2k
+        </span>
+        <span className="flex flex-col items-center text-[9px] font-bold">💬 1.204</span>
+        <span className="flex flex-col items-center text-[9px] font-bold">↗ 9.418</span>
+      </div>
+      <div className="absolute inset-x-4 top-3 h-0.5 overflow-hidden rounded-full bg-white/30">
+        <div className="h-full w-full origin-left animate-[progress-loop_5s_linear_infinite] bg-white" />
+      </div>
+      <div className="absolute left-3 top-6 rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold text-pink-deep">
+        uit je TikTok-feed
+      </div>
+    </div>
+  );
+}
 
 export default function FunnelLanding({ funnel }: { funnel: Funnel }) {
   const router = useRouter();
@@ -18,9 +69,24 @@ export default function FunnelLanding({ funnel }: { funnel: Funnel }) {
     .map(({ slug, qty }) => ({ product: findProduct(slug)!, qty }))
     .filter((i) => i.product);
 
-  const normal = items.reduce((sum, i) => sum + i.product.price * i.qty, 0);
+  // Zelfde regels als het mandje: staffelkorting per regel, en de code
+  // geldt alleen op regels zonder staffel (niet stapelbaar).
   const pct = DISCOUNT_CODES[funnel.code] ?? 0;
-  const withCode = Math.round(normal * (1 - pct / 100));
+  const linePrice = (product: (typeof items)[number]["product"], qty: number) => {
+    // Zelfde afronding als het mandje: korting berekenen en aftrekken
+    const tier = product.bulkDeal?.filter((t) => qty >= t.qty).at(-1);
+    const gross = product.price * qty;
+    return gross - Math.round((gross * (tier?.discountPct ?? 0)) / 100);
+  };
+  const hasBulk = (product: (typeof items)[number]["product"], qty: number) =>
+    Boolean(product.bulkDeal?.some((t) => qty >= t.qty));
+  const normal = items.reduce((sum, i) => sum + i.product.price * i.qty, 0);
+  const afterBulk = items.reduce((sum, i) => sum + linePrice(i.product, i.qty), 0);
+  const eligible = items.reduce(
+    (sum, i) => (hasBulk(i.product, i.qty) ? sum : sum + linePrice(i.product, i.qty)),
+    0
+  );
+  const withCode = afterBulk - Math.round((eligible * pct) / 100);
 
   const orderNow = () => {
     setBusy(true);
@@ -29,30 +95,20 @@ export default function FunnelLanding({ funnel }: { funnel: Funnel }) {
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-8">
+    <div className="mx-auto max-w-3xl px-4 py-8 pb-28 md:pb-8">
       <div className="rise-in text-center">
-        <p className="inline-flex items-center gap-2 rounded-full bg-blush px-4 py-1.5 text-[11px] font-bold uppercase tracking-widest text-pink-deep">
-          <span className="pulse-dot h-2 w-2 rounded-full bg-pink-deep" /> {funnel.socialStat}
+        <p className="inline-flex items-center gap-2 rounded-full bg-blush px-4 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-pink-deep">
+          {funnel.socialStat}
         </p>
-        <h1 className="font-display mt-4 text-4xl font-bold leading-tight">
+        <h1 className="font-display mt-4 text-4xl font-medium leading-tight">
           {funnel.hook.split(" ").slice(0, -1).join(" ")}{" "}
-          <span className="gradient-text italic">{funnel.hook.split(" ").at(-1)}</span>
+          <span className="italic text-pink-deep">{funnel.hook.split(" ").at(-1)}</span>
         </h1>
         <p className="mx-auto mt-3 max-w-lg text-ink-soft">{funnel.sub}</p>
       </div>
 
-      <div className="card mt-8 overflow-hidden">
-        <div className="gradient-animated relative flex aspect-video items-center justify-center">
-          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-2xl shadow-xl transition-transform hover:scale-110">
-            ▶
-          </span>
-          <span className="absolute bottom-3 left-3 rounded-full bg-ink/70 px-3 py-1 text-[11px] font-bold text-white backdrop-blur">
-            {funnel.videoTitle}
-          </span>
-          <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-pink-deep">
-            uit je TikTok-feed 💗
-          </span>
-        </div>
+      <div className="mt-8">
+        <VideoMock title={funnel.videoTitle} />
       </div>
 
       <div className="card mt-6 p-6">
@@ -73,7 +129,7 @@ export default function FunnelLanding({ funnel }: { funnel: Funnel }) {
                 </div>
                 {product.stock <= 10 && (
                   <p className="mt-0.5 text-[11px] font-bold text-pink-deep">
-                    🔥 Nog {product.stock} op voorraad
+                    Nog {product.stock} op voorraad
                   </p>
                 )}
               </div>
@@ -83,29 +139,31 @@ export default function FunnelLanding({ funnel }: { funnel: Funnel }) {
         </div>
 
         <div className="mt-5 rounded-2xl bg-cream p-4 text-center">
-          <p className="text-[12px] font-bold uppercase tracking-wide text-ink-soft">
-            Alleen via deze link
-          </p>
+          <p className="microlabel">Alleen via deze link</p>
           <p className="mt-1">
-            <span className="font-display text-4xl font-bold text-pink-deep">
+            <span className="font-display text-4xl font-medium text-pink-deep">
               {formatPrice(withCode)}
             </span>
             <span className="ml-3 text-lg text-ink-soft line-through">{formatPrice(normal)}</span>
           </p>
           <p className="mt-1 text-[12px] font-bold text-gold">
-            Code {funnel.code} (-{pct}%) wordt automatisch toegepast ✨
+            {eligible > 0
+              ? `Code ${funnel.code} (-${pct}%) wordt automatisch toegepast`
+              : "Staffelkorting zit al in de prijs"}
           </p>
         </div>
 
         <button
           onClick={orderNow}
           disabled={busy}
-          className="gradient-cta btn-cta mt-5 w-full rounded-full py-4 text-lg font-bold text-white disabled:opacity-70"
+          className="btn-cta mt-5 w-full rounded-full py-4 text-lg font-bold disabled:opacity-70"
         >
           {busy ? "Mandje wordt gevuld..." : "Bestel direct →"}
         </button>
-        <p className="mt-3 text-center text-[11px] text-ink-soft">
-          Voor 15:00 besteld = vandaag verzonden · 🎁 cadeautje bij elke bestelling · 30 dagen retour
+        <p className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-center text-[11px] text-ink-soft">
+          <span className="flex items-center gap-1"><IconCheck size={12} /> Vandaag verzonden (vóór 15:00)</span>
+          <span className="flex items-center gap-1"><IconCheck size={12} /> Cadeautje erbij</span>
+          <span className="flex items-center gap-1"><IconCheck size={12} /> 30 dagen retour</span>
         </p>
       </div>
 
@@ -120,6 +178,20 @@ export default function FunnelLanding({ funnel }: { funnel: Funnel }) {
           niet weg durfde te gooien.”
         </p>
         <p className="mt-2 text-[12px] font-bold">Sofie uit Antwerpen · geverifieerde aankoop ✓</p>
+      </div>
+
+      <div className="pointer-events-none fixed inset-x-0 bottom-4 z-30 flex justify-center px-4 md:hidden">
+        <button
+          onClick={orderNow}
+          disabled={busy}
+          className="btn-cta pointer-events-auto w-full max-w-md rounded-full py-4 font-bold shadow-xl disabled:opacity-70"
+        >
+          {busy ? "Mandje wordt gevuld..." : `Bestel direct · ${formatPrice(withCode)}`}
+        </button>
+      </div>
+
+      <div className="mt-8 flex justify-center opacity-70">
+        <Image src="/brand/logo-stacked.png" alt="The Beads Bar" width={120} height={43} className="h-9 w-auto" />
       </div>
     </div>
   );

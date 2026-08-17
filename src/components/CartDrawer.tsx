@@ -1,9 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cart";
 import { findProduct, formatPrice, FREE_SHIPPING_FROM } from "@/lib/products";
 import BeadImage from "./BeadImage";
+import { IconClose } from "./Icons";
 
 function FreeShippingBar() {
   const { subtotal, toFreeShipping } = useCart();
@@ -12,18 +14,16 @@ function FreeShippingBar() {
     <div className="rounded-2xl bg-blush p-3">
       <p className="text-[12px] font-bold">
         {toFreeShipping === 0 ? (
-          <>🎉 Yes! Je bestelling wordt <span className="text-pink-deep">gratis verzonden</span></>
+          <>Yes! Je bestelling wordt <span className="text-pink-deep">gratis verzonden</span></>
         ) : (
           <>
-            Nog <span className="text-pink-deep">{formatPrice(toFreeShipping)}</span> tot gratis verzending 🚚
+            Nog <span className="text-pink-deep">{formatPrice(toFreeShipping)}</span> tot gratis
+            verzending
           </>
         )}
       </p>
       <div className="mt-2 h-2 overflow-hidden rounded-full bg-white">
-        <div
-          className="progress-fill gradient-cta h-full rounded-full"
-          style={{ width: `${progress}%` }}
-        />
+        <div className="progress-fill h-full rounded-full bg-pink" style={{ width: `${progress}%` }} />
       </div>
     </div>
   );
@@ -40,7 +40,7 @@ function UpsellRow() {
   if (suggestions.length === 0 || lines.length === 0) return null;
   return (
     <div>
-      <p className="mb-2 text-[12px] font-bold text-ink-soft">Maak je bestelling af ✨</p>
+      <p className="microlabel mb-2">Maakt je bestelling af</p>
       <div className="space-y-2">
         {suggestions.map((p) => (
           <div key={p.slug} className="flex items-center gap-3 rounded-2xl border border-line bg-card p-2">
@@ -58,7 +58,7 @@ function UpsellRow() {
             </div>
             <button
               onClick={() => add(p.slug, 1, { silent: true })}
-              className="gradient-cta btn-cta rounded-full px-3 py-1.5 text-[12px] font-bold text-white"
+              className="btn-cta rounded-full px-3 py-1.5 text-[12px] font-bold"
             >
               + Voeg toe
             </button>
@@ -87,15 +87,15 @@ export default function CartDrawer() {
         aria-label="Winkelwagen"
       >
         <div className="flex items-center justify-between border-b border-line bg-card px-5 py-4">
-          <h2 className="font-display text-xl font-bold">
+          <h2 className="font-display text-xl font-medium">
             Jouw mandje <span className="text-pink-deep">♥</span>
           </h2>
           <button
             onClick={closeCart}
             aria-label="Sluiten"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-line transition-colors hover:bg-blush"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-line text-ink-soft transition-colors hover:bg-blush"
           >
-            ✕
+            <IconClose size={14} />
           </button>
         </div>
 
@@ -103,14 +103,21 @@ export default function CartDrawer() {
           <FreeShippingBar />
 
           {lines.length === 0 ? (
-            <div className="py-10 text-center">
-              <p className="text-4xl">🫧</p>
+            <div className="py-8 text-center">
+              <Image
+                src="/brand/mascot-3.png"
+                alt=""
+                width={120}
+                height={132}
+                className="mx-auto drop-shadow"
+                aria-hidden
+              />
               <p className="mt-3 font-bold">Je mandje is nog leeg</p>
               <p className="mt-1 text-sm text-ink-soft">Tijd om iets moois uit te zoeken!</p>
               <Link
                 href="/shop"
                 onClick={closeCart}
-                className="gradient-cta btn-cta mt-4 inline-block rounded-full px-6 py-2.5 text-sm font-bold text-white"
+                className="btn-cta mt-4 inline-block rounded-full px-6 py-2.5 text-sm font-bold"
               >
                 Shop alle producten
               </Link>
@@ -133,7 +140,7 @@ export default function CartDrawer() {
                         <p className="text-sm text-pink-deep">{formatPrice(lineTotal(line))}</p>
                         {discount > 0 && (
                           <p className="text-[11px] font-bold text-mint">
-                            Staffelkorting: -{formatPrice(discount)} 🎉
+                            Staffelkorting: -{formatPrice(discount)}
                           </p>
                         )}
                         <div className="mt-2 flex items-center gap-2">
@@ -163,7 +170,7 @@ export default function CartDrawer() {
                     </div>
                     {nextTier && (
                       <p className="mt-2 rounded-xl bg-cream px-3 py-1.5 text-[11px] font-semibold text-gold">
-                        💡 Neem er {nextTier.qty} en krijg {nextTier.discountPct}% korting op deze regel
+                        Neem er {nextTier.qty} en krijg {nextTier.discountPct}% korting op deze regel
                       </p>
                     )}
                   </div>
@@ -179,17 +186,17 @@ export default function CartDrawer() {
           <div className="border-t border-line bg-card p-5">
             <div className="mb-3 flex items-center justify-between">
               <span className="text-sm font-semibold text-ink-soft">Subtotaal</span>
-              <span className="font-display text-xl font-bold">{formatPrice(subtotal)}</span>
+              <span className="font-display text-xl font-medium">{formatPrice(subtotal)}</span>
             </div>
             <Link
               href="/checkout"
               onClick={closeCart}
-              className="gradient-cta btn-cta block w-full rounded-full py-3.5 text-center font-bold text-white"
+              className="btn-cta block w-full rounded-full py-3.5 text-center font-bold"
             >
               Afrekenen →
             </Link>
             <p className="mt-2 text-center text-[11px] text-ink-soft">
-              🎁 Gratis mini-zakje kralen zit er al bij · iDEAL · Klarna · PayPal
+              Gratis mini-zakje kralen zit er al bij · iDEAL · Klarna · PayPal
             </p>
           </div>
         )}

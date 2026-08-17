@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Quicksand } from "next/font/google";
+import { Great_Vibes, Playfair_Display, Quicksand } from "next/font/google";
 import { CartProvider } from "@/lib/cart";
 import "./globals.css";
 
@@ -14,9 +14,15 @@ const quicksand = Quicksand({
   subsets: ["latin"],
 });
 
+const script = Great_Vibes({
+  variable: "--font-script-var",
+  subsets: ["latin"],
+  weight: "400",
+});
+
 export const metadata: Metadata = {
   title: {
-    default: "The Beads Bar · Beads · Create · Inspire",
+    default: "The Beads Bar · Handcrafted Elegance",
     template: "%s · The Beads Bar",
   },
   description:
@@ -31,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="nl">
-      <body className={`${playfair.variable} ${quicksand.variable} antialiased`}>
+      <body className={`${playfair.variable} ${quicksand.variable} ${script.variable} antialiased`}>
         <CartProvider>{children}</CartProvider>
       </body>
     </html>

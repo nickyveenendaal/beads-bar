@@ -228,7 +228,11 @@ export const PRODUCTS: Product[] = [
   },
 ];
 
-export const FREE_SHIPPING_FROM = 5000; // €50, net als de mockup
+export const FREE_SHIPPING_FROM = 1500; // €15: haalbaar doel bij lage orderwaardes (1,5x AOV)
+export const SHIPPING_RATES: Record<string, { label: string; cost: number }> = {
+  NL: { label: "Brievenbuspost NL", cost: 250 },
+  BE: { label: "Brievenbuspost BE", cost: 350 },
+};
 export const GIFT_WITH_EVERY_ORDER = "Gratis mini-zakje kralen bij elke bestelling";
 export const DISCOUNT_CODES: Record<string, number> = {
   BEADS10: 10, // welkomstkorting nieuwsbrief
@@ -247,6 +251,31 @@ export function formatPrice(cents: number): string {
   });
   return `€${formatted}`;
 }
+
+// Inkoopprijs per product (centen): voedt de marge-kolom in de admin.
+export const COST_PRICES: Record<string, number> = {
+  "acryl-flower-beads-mix": 120,
+  "beadable-pen-pink-bow": 165,
+  "letter-beads-mix-pink": 85,
+  "gold-charm-mix": 140,
+  "pearl-beads-baby-pink": 90,
+  "diy-set-armband-party": 520,
+  "beadable-pen-gold-heart": 170,
+  "smiley-beads-pastel": 110,
+  "armband-pearl-blossom": 240,
+  "telefoonkoord-candy": 210,
+  "mystery-beads-bag": 95,
+  "diy-set-pen-studio": 640,
+};
+
+// Sterrenverdeling over alle 1.214 reviews (voor het histogram).
+export const RATING_BREAKDOWN: { stars: number; count: number }[] = [
+  { stars: 5, count: 1004 },
+  { stars: 4, count: 152 },
+  { stars: 3, count: 39 },
+  { stars: 2, count: 12 },
+  { stars: 1, count: 7 },
+];
 
 export type Review = { name: string; place: string; text: string; product: string; rating: number };
 
@@ -271,6 +300,13 @@ export const REVIEWS: Review[] = [
     text: "Kwaliteit is echt anders dan wat je op grote sites koopt. Alle kralen mooi gelijk en de kleuren kloppen precies met de foto's.",
     product: "Pearl Beads - Baby Pink",
     rating: 5,
+  },
+  {
+    name: "Maud",
+    place: "Tilburg",
+    text: "Mooie kralen en snelle levering. Eén ster eraf omdat de letterkralen iets kleiner zijn dan ik dacht, dus check even de maten. Bestel zeker opnieuw.",
+    product: "Letter Beads Mix - Pink",
+    rating: 4,
   },
   {
     name: "Yara",

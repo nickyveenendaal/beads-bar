@@ -1,32 +1,34 @@
 @import "tailwindcss";
 
 /* ── The Beads Bar huisstijl ─────────────────────────────
-   Palet uit de logo/homepage-mockup: blush-roze canvas,
-   witte kaarten, snoeproze accenten, goud als vonk,
-   warm chocoladebruin als tekstkleur. */
+   Palet uit de officiële logo's en homepage-mockup:
+   blush-roze canvas, witte kaarten, snoeproze pills,
+   gedempt goud, warm chocoladebruin. Geen gradient-knoppen:
+   de mockup gebruikt effen roze. */
 @theme inline {
-  --color-canvas: #fff6f8;
-  --color-blush: #ffe8f0;
-  --color-blush-deep: #ffd6e4;
+  --color-canvas: #fff7f9;
+  --color-blush: #fdeaf1;
+  --color-blush-deep: #f9d6e2;
   --color-cream: #fff9f2;
   --color-card: #ffffff;
-  --color-pink: #f7a8c4;
-  --color-pink-mid: #f078a8;
-  --color-pink-deep: #e05a92;
-  --color-gold: #d9a441;
-  --color-gold-soft: #ecc987;
-  --color-ink: #4a342e;
-  --color-ink-soft: #8a6f66;
-  --color-line: #f6dde7;
+  --color-pink: #ee8fb8;
+  --color-pink-mid: #e87aa9;
+  --color-pink-deep: #d95f95;
+  --color-gold: #c9a24a;
+  --color-gold-soft: #e6cf9a;
+  --color-ink: #5a4436;
+  --color-ink-soft: #99806f;
+  --color-line: #f5dde6;
   --color-mint: #7ec8a9;
   --font-display: var(--font-playfair);
   --font-body: var(--font-quicksand);
+  --font-script: var(--font-script-var);
 }
 
 :root {
-  --shadow-card: 0 4px 14px rgba(224, 90, 146, 0.08), 0 2px 5px rgba(74, 52, 46, 0.05);
-  --shadow-lift: 0 18px 38px rgba(224, 90, 146, 0.2), 0 6px 14px rgba(74, 52, 46, 0.08);
-  --shadow-cta: 0 8px 24px rgba(224, 90, 146, 0.38);
+  --shadow-card: 0 4px 14px rgba(217, 95, 149, 0.07), 0 2px 5px rgba(90, 68, 54, 0.05);
+  --shadow-lift: 0 16px 34px rgba(217, 95, 149, 0.16), 0 6px 14px rgba(90, 68, 54, 0.07);
+  --shadow-cta: 0 6px 18px rgba(217, 95, 149, 0.22);
   --radius-card: 28px;
 }
 
@@ -45,26 +47,24 @@ body {
   font-family: var(--font-display), Georgia, serif;
 }
 
-/* ── Bewegende gradients ── */
+.font-script {
+  font-family: var(--font-script), cursive;
+}
+
+/* Microlabel boven sectiekoppen, mockup-stijl: klein kapitaal, ruim gespatieerd */
+.microlabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--color-pink-mid);
+}
+
+/* ── Zachte bewegende gradient (alleen decorvlakken, geen knoppen) ── */
 .gradient-animated {
-  background: linear-gradient(120deg, #ffe8f0, #fff9f2, #ffd6e4, #fdeacc, #ffe8f0);
+  background: linear-gradient(120deg, #fdeaf1, #fff9f2, #f9d6e2, #fdf1dc, #fdeaf1);
   background-size: 300% 300%;
-  animation: gradient-drift 14s ease-in-out infinite;
-}
-
-.gradient-cta {
-  background: linear-gradient(120deg, #f078a8, #e05a92, #d9a441, #f078a8);
-  background-size: 300% 100%;
-  animation: gradient-drift 6s ease-in-out infinite;
-}
-
-.gradient-text {
-  background: linear-gradient(100deg, #e05a92, #d9a441 55%, #e05a92);
-  background-size: 200% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: gradient-drift 5s ease-in-out infinite;
+  animation: gradient-drift 18s ease-in-out infinite;
 }
 
 @keyframes gradient-drift {
@@ -72,11 +72,36 @@ body {
   50% { background-position: 100% 50%; }
 }
 
-/* ── Marquee (aanbiedingsbalk) ── */
+/* ── Knoppen: effen snoeproze, mockup-stijl ── */
+.btn-cta {
+  background: var(--color-pink);
+  color: #ffffff;
+  box-shadow: var(--shadow-cta);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, background 0.25s ease;
+}
+.btn-cta:hover {
+  background: var(--color-pink-mid);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(217, 95, 149, 0.3);
+}
+.btn-cta:active { transform: translateY(0); }
+
+.btn-outline {
+  background: #ffffff;
+  border: 1.5px solid var(--color-line);
+  transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.btn-outline:hover {
+  border-color: var(--color-pink);
+  color: var(--color-pink-deep);
+  transform: translateY(-1px);
+}
+
+/* ── Marquee (aanbiedingsbalk), rustig tempo ── */
 .marquee {
   display: flex;
   width: max-content;
-  animation: marquee 28s linear infinite;
+  animation: marquee 45s linear infinite;
 }
 .marquee:hover { animation-play-state: paused; }
 @keyframes marquee {
@@ -84,24 +109,30 @@ body {
   to { transform: translateX(-50%); }
 }
 
-/* ── Zweven en fonkelen ── */
-.float-slow { animation: float 6s ease-in-out infinite; }
-.float-slower { animation: float 9s ease-in-out infinite; }
+/* ── Zweven en fonkelen, ingetogen ── */
+.float-slow { animation: float 7s ease-in-out infinite; }
+.float-slower { animation: float 10s ease-in-out infinite; }
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-14px) rotate(3deg); }
+  50% { transform: translateY(-8px) rotate(1.5deg); }
 }
 
-.twinkle { animation: twinkle 3s ease-in-out infinite; }
+.sway { animation: sway 8s ease-in-out infinite; transform-origin: 50% 90%; }
+@keyframes sway {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+
+.twinkle { animation: twinkle 4s ease-in-out infinite; }
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.15); }
+  0%, 100% { opacity: 0.15; transform: scale(0.85); }
+  50% { opacity: 0.5; transform: scale(1.05); }
 }
 
-.pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
+.pulse-dot { animation: pulse-dot 1.8s ease-in-out infinite; }
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(126, 200, 169, 0.5); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(126, 200, 169, 0); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(126, 200, 169, 0.45); }
+  50% { opacity: 0.75; box-shadow: 0 0 0 6px rgba(126, 200, 169, 0); }
 }
 
 /* ── Kaarten ── */
@@ -112,22 +143,11 @@ body {
   transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
 }
 .card-hover:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lift);
 }
 
-.btn-cta {
-  box-shadow: var(--shadow-cta);
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, filter 0.25s ease;
-}
-.btn-cta:hover {
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(224, 90, 146, 0.5);
-  filter: brightness(1.04);
-}
-.btn-cta:active { transform: translateY(0) scale(0.99); }
-
-/* ── Shimmer op badges ── */
+/* ── Shimmer: alléén voor de deal-van-de-dag-badge ── */
 .shimmer {
   position: relative;
   overflow: hidden;
@@ -136,13 +156,13 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.7) 50%, transparent 60%);
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.65) 50%, transparent 60%);
   transform: translateX(-100%);
-  animation: shimmer 2.8s ease-in-out infinite;
+  animation: shimmer 6s ease-in-out infinite;
 }
 @keyframes shimmer {
   0% { transform: translateX(-100%); }
-  60%, 100% { transform: translateX(100%); }
+  30%, 100% { transform: translateX(100%); }
 }
 
 /* ── Binnenkomen ── */
@@ -158,10 +178,38 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Scroll-reveal: Reveal.tsx zet .revealed zodra de sectie in beeld komt */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .toast-in { animation: toast-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
 @keyframes toast-in {
   from { opacity: 0; transform: translateY(24px) scale(0.95); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Cart-badge pop bij toevoegen */
+.badge-pop { animation: badge-pop 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes badge-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+/* Wishlist-hart bounce */
+.heart-bounce { animation: heart-bounce 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes heart-bounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
 }
 
 /* ── Confetti (bedankt-pagina) ── */
@@ -177,14 +225,29 @@ body {
   to { transform: translateY(105vh) rotate(720deg); opacity: 0; }
 }
 
-/* ── Voortgangsbalk gratis verzending ── */
+/* Voortgangsbalkje in de nagespeelde TikTok-video */
+@keyframes progress-loop {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ── Voortgangsbalk ── */
 .progress-fill {
   transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── Scrollbars in drawers ── */
 .nice-scroll::-webkit-scrollbar { width: 6px; }
-.nice-scroll::-webkit-scrollbar-thumb { background: #f6dde7; border-radius: 999px; }
+.nice-scroll::-webkit-scrollbar-thumb { background: #f5dde6; border-radius: 999px; }
 
-/* Kleine hulpjes */
 .text-balance { text-wrap: balance; }
+
+/* ── Toegankelijkheid: geen animaties voor wie dat niet wil ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}

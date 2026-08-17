@@ -1,13 +1,17 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { RECENT_BUYS } from "@/lib/products";
 
 // "Kocht zojuist"-melding linksonder: social proof die vertrouwen en
 // urgentie geeft. Verschijnt pas na een paar seconden, wisselt rustig.
 export default function SocialProofToast() {
+  const pathname = usePathname();
   const [index, setIndex] = useState(-1);
   const [visible, setVisible] = useState(false);
+  // Niet op de checkout of bedankt-pagina: daar hoort rust
+  const suppressed = pathname.startsWith("/checkout") || pathname.startsWith("/bedankt");
 
   useEffect(() => {
     let i = 0;
@@ -27,7 +31,7 @@ export default function SocialProofToast() {
     };
   }, []);
 
-  if (index < 0) return null;
+  if (index < 0 || suppressed) return null;
   const buy = RECENT_BUYS[index];
 
   return (
