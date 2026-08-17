@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 
 const COLS = [
@@ -29,7 +30,7 @@ export default function Footer() {
     <footer className="mt-16 border-t border-line bg-card">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <Image src="/brand/logo-stacked.png" alt="The Beads Bar" width={168} height={60} className="h-14 w-auto" />
+          <Image src={asset("/brand/logo-stacked.png")} alt="The Beads Bar" width={168} height={60} className="h-14 w-auto" />
           <p className="mt-3 text-sm text-ink-soft">
             Premium kralen en beadable pens, met liefde verpakt en dezelfde werkdag verzonden.
           </p>

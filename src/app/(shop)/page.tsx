@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import BeadImage from "@/components/BeadImage";
 import Countdown from "@/components/Countdown";
@@ -101,7 +102,7 @@ function Hero() {
               </div>
             </div>
             <div className="sway absolute -left-24 bottom-14 hidden w-32 lg:block" aria-hidden>
-              <Image src="/brand/mascot-beading.png" alt="" width={128} height={141} className="drop-shadow-lg" />
+              <Image src={asset("/brand/mascot-beading.png")} alt="" width={128} height={141} className="drop-shadow-lg" />
             </div>
             <div className="absolute -right-3 -top-4 rotate-12 rounded-full border-2 border-gold-soft bg-white px-5 py-3 text-center shadow-md">
               <p className="font-script text-xl leading-none text-gold">Handmade</p>
@@ -334,7 +335,7 @@ function BeadsClub() {
       <Reveal>
         <div className="gradient-animated relative overflow-hidden rounded-[32px] px-6 py-12 text-center md:px-12">
           <div className="pointer-events-none absolute -right-4 bottom-0 hidden w-40 md:block" aria-hidden>
-            <Image src="/brand/mascot-2.png" alt="" width={160} height={190} className="drop-shadow-lg" />
+            <Image src={asset("/brand/mascot-2.png")} alt="" width={160} height={190} className="drop-shadow-lg" />
           </div>
           <p className="font-script text-4xl text-pink-deep">Join the Beads Club</p>
           <p className="mx-auto mt-3 max-w-md text-sm text-ink-soft">

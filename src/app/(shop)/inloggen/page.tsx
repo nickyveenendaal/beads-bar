@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -25,7 +26,7 @@ export default function LoginPage() {
     <div className="mx-auto max-w-md px-4 py-14">
       <div className="card overflow-hidden">
         <div className="gradient-animated px-6 pb-4 pt-7 text-center">
-          <Image src="/brand/mascot-1.png" alt="" width={110} height={105} className="mx-auto drop-shadow" aria-hidden />
+          <Image src={asset("/brand/mascot-1.png")} alt="" width={110} height={105} className="mx-auto drop-shadow" aria-hidden />
           <h1 className="font-display mt-2 text-3xl font-medium">Welkom terug</h1>
           <p className="mt-1 text-sm text-ink-soft">
             Log in voor je bestellingen, favorieten en sneller afrekenen.

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
@@ -112,7 +113,7 @@ function HeaderInner() {
 
         <Link href="/" className="justify-self-center text-center" aria-label="The Beads Bar home">
           <Image
-            src="/brand/logo-horizontal.png"
+            src={asset("/brand/logo-horizontal.png")}
             alt="The Beads Bar"
             width={216}
             height={53}

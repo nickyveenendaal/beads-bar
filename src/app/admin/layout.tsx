@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -37,7 +38,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <div className="flex min-h-screen">
       <aside className="hidden w-60 shrink-0 border-r border-line bg-card p-4 md:block">
         <Link href="/admin" className="block px-2 py-2">
-          <Image src="/brand/logo-horizontal.png" alt="The Beads Bar" width={150} height={37} className="h-8 w-auto" />
+          <Image src={asset("/brand/logo-horizontal.png")} alt="The Beads Bar" width={150} height={37} className="h-8 w-auto" />
         </Link>
         <p className="px-2 pb-3 text-[10px] font-bold uppercase tracking-[0.28em] text-ink-soft">
           Backoffice

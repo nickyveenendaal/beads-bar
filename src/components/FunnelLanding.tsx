@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import BeadImage from "@/components/BeadImage";
@@ -201,7 +202,7 @@ export default function FunnelLanding({ funnel }: { funnel: Funnel }) {
       </div>
 
       <div className="mt-8 flex justify-center opacity-70">
-        <Image src="/brand/logo-stacked.png" alt="The Beads Bar" width={120} height={43} className="h-9 w-auto" />
+        <Image src={asset("/brand/logo-stacked.png")} alt="The Beads Bar" width={120} height={43} className="h-9 w-auto" />
       </div>
     </div>
   );

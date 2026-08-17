@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import { useCart } from "@/lib/cart";
 import { findProduct, formatPrice, FREE_SHIPPING_FROM } from "@/lib/products";
@@ -105,7 +106,7 @@ export default function CartDrawer() {
           {lines.length === 0 ? (
             <div className="py-8 text-center">
               <Image
-                src="/brand/mascot-3.png"
+                src={asset("/brand/mascot-3.png")}
                 alt=""
                 width={120}
                 height={132}

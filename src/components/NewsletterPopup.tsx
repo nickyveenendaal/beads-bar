@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import { useEffect, useState } from "react";
 import { IconClose } from "./Icons";
 
@@ -35,7 +36,7 @@ export default function NewsletterPopup() {
         </button>
         <div className="gradient-animated px-6 pb-5 pt-7">
           <Image
-            src="/brand/mascot-1.png"
+            src={asset("/brand/mascot-1.png")}
             alt=""
             width={110}
             height={105}

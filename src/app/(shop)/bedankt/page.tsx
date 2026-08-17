@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import BeadImage from "@/components/BeadImage";
@@ -71,7 +72,7 @@ export default function ThanksPage() {
     <div className="relative mx-auto max-w-2xl px-4 py-16 text-center">
       <Confetti />
       <div className="pop-in mx-auto w-36" aria-hidden>
-        <Image src="/brand/mascot-4.png" alt="" width={144} height={139} className="drop-shadow-lg" />
+        <Image src={asset("/brand/mascot-4.png")} alt="" width={144} height={139} className="drop-shadow-lg" />
       </div>
       <h1 className="font-display mt-5 text-4xl font-medium">
         Gelukt! Je bestelling is <span className="italic text-pink-deep">binnen</span>

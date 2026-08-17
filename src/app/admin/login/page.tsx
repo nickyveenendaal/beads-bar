@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,7 +25,7 @@ export default function AdminLoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-canvas px-4">
       <div className="w-full max-w-sm">
         <div className="card p-8 text-center">
-          <Image src="/brand/badge.png" alt="The Beads Bar" width={84} height={84} className="mx-auto" />
+          <Image src={asset("/brand/badge.png")} alt="The Beads Bar" width={84} height={84} className="mx-auto" />
           <h1 className="font-display mt-4 text-2xl font-medium">Beheeromgeving</h1>
           <p className="mt-1 text-[13px] text-ink-soft">Alleen voor medewerkers.</p>
           <form onSubmit={doLogin} className="mt-6 space-y-3 text-left">
