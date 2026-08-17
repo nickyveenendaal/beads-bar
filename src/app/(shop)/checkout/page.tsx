@@ -224,7 +224,12 @@ function CheckoutInner() {
             </div>
 
             <div className="mt-4 border-t border-line pt-4">
-              {appliedCode ? (
+              {appliedCode && codeDiscount === 0 ? (
+                <p className="rounded-xl bg-cream px-3 py-2 text-[11px] font-semibold text-ink-soft">
+                  {appliedCode} geldt niet samen met staffelkorting: je staffelvoordeel is groter,
+                  dus die houden we aan.
+                </p>
+              ) : appliedCode ? (
                 <p className="flex items-center justify-between rounded-xl bg-blush px-3 py-2 text-[12px] font-bold">
                   <span>
                     Code <span className="text-pink-deep">{appliedCode}</span> toegepast

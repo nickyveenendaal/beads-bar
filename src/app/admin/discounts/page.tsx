@@ -80,7 +80,7 @@ export default function AdminDiscountsPage() {
               <th className="p-4">Type</th>
               <th className="p-4">Min. bestelling</th>
               <th className="p-4">Gebruikt</th>
-              <th className="p-4">Omzet via code</th>
+              <th className="p-4">Omzet sinds start</th>
               <th className="p-4">Gekoppeld aan</th>
               <th className="p-4">Status</th>
             </tr>
